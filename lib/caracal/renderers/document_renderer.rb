@@ -424,12 +424,29 @@ module Caracal
         xml['w'].r run_options do
           render_run_attributes(xml, model, false)
 
-          t_attributes = {}
-          if text_content.start_with?(' ') || text_content.end_with?(' ')
-            t_attributes['xml:space'] = 'preserve'
-          end
+          # Support for having a {{NBSP}} within text and turning it to the NBSP character
+          # Makes tests easier to write/read
+          all_text_content = model.text_content.gsub("{{NBSP}}", "\u00a0")
 
-          xml['w'].t(t_attributes, model.text_content)
+          # Support for having a {{br}} within text and turning it to br in the same run
+          # Using the br command creates a new run, which doesn't match regular documents
+          # Now it's possible to do either.
+          text_contents = all_text_content.split(/(\{\{br\}\})/)
+
+          text_contents.each do |text_content|
+            next if text_content.size == 0
+
+            if text_content == '{{br}}'
+              xml['w'].br
+            else
+              t_attributes = {}
+
+              if text_content.start_with?(' ') || text_content.end_with?(' ')
+                t_attributes['xml:space'] = 'preserve'
+              end
+              xml['w'].t(t_attributes, text_content)
+            end
+          end
           xml['w'].tab if model.text_end_tab
         end
       end
