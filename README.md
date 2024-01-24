@@ -1,8 +1,10 @@
 # Caracal
 
-This fork includes fixes and functionalities from pending PRs from the original project, to be able to use them while waiting for the PRs to be merged there.
-Fork gem version = 1.7.2
-Original [![Gem Version](http://img.shields.io/gem/v/caracal.svg?style=flat)](https://rubygems.org/gems/caracal)
+Forked from https://github.com/Sprengnetter/caracal
+
+I'm making changes mostly for my needs to use this as part of tests only. This is not meant to receive untrusted data.
+
+Tests are not going to be kept up to date.
 
 ## Overview
 
