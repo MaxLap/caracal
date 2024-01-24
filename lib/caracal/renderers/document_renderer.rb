@@ -508,6 +508,11 @@ module Caracal
           rowspan_hash = {}
           model.rows.each_with_index do |row, index|
             wordml.tr do
+              if (row_style = model.row_styles[index])
+                wordml.trPr do
+                  wordml.trHeight 'w:val' => row_style.row_height if row_style.row_height
+                end
+              end
               if model.table_repeat_header > 0
                 if index < model.table_repeat_header
                   wordml.trPr do

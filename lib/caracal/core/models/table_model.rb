@@ -1,6 +1,7 @@
 require 'caracal/core/models/base_model'
 require 'caracal/core/models/border_model'
 require 'caracal/core/models/table_cell_model'
+require 'caracal/core/models/table_row_model'
 
 
 module Caracal
@@ -52,6 +53,7 @@ module Caracal
           @table_border_size    = DEFAULT_TABLE_BORDER_SIZE
           @table_border_spacing = DEFAULT_TABLE_BORDER_SPACING
           @table_repeat_header  = DEFAULT_TABLE_REPEAT_HEADER
+          @row_styles = []
 
           super options, &block
         end
@@ -80,6 +82,8 @@ module Caracal
         def rows
           @table_data || [[]]
         end
+
+        attr_reader :row_styles
 
 
         #=============== STYLES ===============================
@@ -113,6 +117,13 @@ module Caracal
           end
         end
 
+        def row_style(row_index, options)
+          model = @row_styles[row_index] ||= Caracal::Core::Models::TableRowModel.new
+
+          options.each do |(key, value)|
+            model.send(key, value) if model.option_keys.include?(key)
+          end
+        end
 
         #=============== GETTERS ==============================
 
