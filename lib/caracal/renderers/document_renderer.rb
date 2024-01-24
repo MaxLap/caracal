@@ -313,7 +313,15 @@ module Caracal
         xml['w'].hyperlink(hyperlink_options) do
           xml['w'].r run_options do
             render_run_attributes(xml, model, false)
-            xml['w'].t({ 'xml:space' => 'preserve' }, model.link_content)
+
+            t_attributes = {}
+            link_content = model.link_content
+
+            if link_content.start_with?(' ') || link_content.end_with?(' ')
+              t_attributes['xml:space'] = 'preserve'
+            end
+
+            xml['w'].t(t_attributes, link_content)
           end
         end
       end
@@ -415,7 +423,13 @@ module Caracal
       def render_text(xml, model)
         xml['w'].r run_options do
           render_run_attributes(xml, model, false)
-          xml['w'].t({ 'xml:space' => 'preserve' }, model.text_content)
+
+          t_attributes = {}
+          if text_content.start_with?(' ') || text_content.end_with?(' ')
+            t_attributes['xml:space'] = 'preserve'
+          end
+
+          xml['w'].t(t_attributes, model.text_content)
           xml['w'].tab if model.text_end_tab
         end
       end
