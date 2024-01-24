@@ -218,7 +218,7 @@ module Caracal
         #========== VALIDATION ============================
 
         def valid?
-          runs.size > 0
+          true
         end
 
 
