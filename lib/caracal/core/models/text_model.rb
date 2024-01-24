@@ -101,18 +101,6 @@ module Caracal
         def option_keys
           [:content, :style, :font, :color, :size, :bold, :italic, :underline, :bgcolor, :highlight_color, :vertical_align, :end_tab]
         end
-
-        def method_missing(method, *args, &block)
-          # I'm on the fence with respect to this implementation. We're ignoring
-          # :method_missing errors to allow syntax flexibility for paragraph-type
-          # models.  The issue is the syntax format of those models--the way we pass
-          # the content value as a special argument--coupled with the model's
-          # ability to accept nested instructions.
-          #
-          # By ignoring method missing errors here, we can pass the entire paragraph
-          # block in the initial, built-in call to :text.
-        end
-
       end
 
     end
