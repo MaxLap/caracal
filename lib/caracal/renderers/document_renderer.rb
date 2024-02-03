@@ -39,8 +39,9 @@ module Caracal
                   xml['w'].footerReference 'r:id' => rel.formatted_id, 'w:type' => (footer.type || 'default')
                 end
 
-                # FIXME: dirty hack to let word create a blank header for the first page which is the cover
-                xml['w'].titlePg
+                # Uncommenting the following line makes a distinct header and footer for the first page
+                # I don't personally need that for my tests, and it just makes things more confusing when the header doesn't show...
+                # xml['w'].titlePg
 
                 xml['w'].pgSz page_size_options
                 xml['w'].pgMar page_margin_options
