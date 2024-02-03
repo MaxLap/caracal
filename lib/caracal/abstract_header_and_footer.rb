@@ -45,7 +45,7 @@ module Caracal
 
     attr_reader :index, :type
 
-    def initialize(index: 1, type: 'default')
+    def initialize(index: 1, type: 'default', &block)
       @index = index
       @type = type
       page_size
@@ -56,6 +56,10 @@ module Caracal
         collection.each do |item|
           send(method, item)
         end
+      end
+
+      if block_given?
+        (block.arity < 1) ? instance_eval(&block) : block[self]
       end
     end
 
