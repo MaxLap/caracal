@@ -228,12 +228,6 @@ module Caracal
               end
             end
           end
-
-          xml['w'].r run_options do
-            xml['w'].rPr do
-              xml['w'].rtl 'w:val' => '0'
-            end
-          end
         end
       end
 
